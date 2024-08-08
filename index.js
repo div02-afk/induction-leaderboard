@@ -16,7 +16,7 @@ app.use(express.json());
 app.post("/", async (req, res) => {
   const { name, regno, score } = req.body;
   const user = { name, regno, score };
-  await client.set(regno, JSON.stringify(user));
+  await client.set(`${name}:${regno}`, JSON.stringify(user));
   res.status(200).send("Data saved");
 });
 app.get("/", async (req, res) => {
