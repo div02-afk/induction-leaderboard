@@ -23,7 +23,9 @@ app.get("/", async (req, res) => {
   const keys = await client.keys("*");
   console.log(keys);
   const users = JSON.parse(await client.mget(keys));
-  console.log(users);
+  if(!users) {
+    return res.status(404).send({});
+  }
 
   res.status(200).send(users);
 });
