@@ -15,6 +15,9 @@ app.use(express.json());
 
 app.post("/", async (req, res) => {
   const { name, regno, score } = req.body;
+  if(!name || !regno || !score){
+    return res.status(400).send("Invalid data");
+  }
   const user = { name, regno, score };
   await client.set(`${name}:${regno}`, JSON.stringify(user));
   res.status(200).send("Data saved");
